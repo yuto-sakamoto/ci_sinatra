@@ -6,7 +6,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run
+      - run:
           name: bundle update
           command: gem install bundler:2.0.2
       - restore_cache:
