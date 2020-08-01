@@ -5,11 +5,18 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
+      - image: circleci/ruby:2.6.3 # docker hubからイメージを取得する
     executor: ruby/default
     steps:
       - checkout
+      - run: #runのnameごとにステップが分かれて実行される
+          name: gem install # ステップ名
+          command: gem install bundler:2.0.2 # 実行されるコマンド
       - run:
           name: Which bundler?
           command: bundle -v
-      - ruby/bundle-install
+      - run:
+        name: install dependencies
+        command: |
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+      # - ruby/bundle-install
