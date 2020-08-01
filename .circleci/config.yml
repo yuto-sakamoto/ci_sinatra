@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@0.1.2 
+  ruby: circleci/ruby@0.1.2
 
 jobs:
   build:
@@ -20,3 +20,4 @@ jobs:
         command: |
           bundle install --jobs=4 --retry=3 --path vendor/bundle
       # - ruby/bundle-install
+
