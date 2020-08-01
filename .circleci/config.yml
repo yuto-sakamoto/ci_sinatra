@@ -13,9 +13,9 @@ jobs:
           name: gem install # ステップ名
           command: gem install bundler:2.0.2 # 実行されるコマンド
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }} # キャッシュ(Gemfile.lock)をリストアに保存する
-          - v1-dependencies-
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }} # キャッシュ(Gemfile.lock)をリストアに保存する
+            - v1-dependencies-
       - run:
           name: Which bundler?
           command: bundle -v
@@ -24,6 +24,6 @@ jobs:
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
-        paths:
-          - ./vendor/bundle
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }} # インストール済みのライブラリをキャッシュする
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }} # インストール済みのライブラリをキャッシュする
