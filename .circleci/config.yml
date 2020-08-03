@@ -27,3 +27,15 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }} # インストール済みのライブラリをキャッシュする
+
+workflows:
+  version: 2.1
+  test:
+    jobs:
+      - build
+      - build_image:
+        requires:
+          - build
+          filters:
+            branches:
+              only: master
