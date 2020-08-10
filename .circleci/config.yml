@@ -51,7 +51,7 @@ jobs:
           name: build image
           # ${circleciで設定した環境変数}で参照できる。
           command: |
-            docker build -t ${ECR_DOMAIN}:$CIRCLE_SHA1 -t ${ECR_DOMAIN}:latest .
+            docker build -f docker/Dockerfile -t ${ECR_DOMAIN}:$CIRCLE_SHA1 -t ${ECR_DOMAIN}:latest .
       # ビルドしたイメージをECRにpush
       - run:
           name: Push docker image
@@ -61,10 +61,11 @@ jobs:
 
 workflows:
   version: 2
+  # testという名前で以下で指定しているjobを実行する
   test:
     jobs:
-      - build # jobs.buildを実行
-      - build_image: # jobs.build_imageを実行
+      - build # 上部にあるjobs.buildを実行
+      - build_image: # 上部にあるjobs.build_imageを実行
           # jobs.buildを実行後
           requires:
             - build
